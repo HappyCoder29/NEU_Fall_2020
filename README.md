@@ -1,2 +1,3 @@
-# NEU_Fall_2020
+# NEU Fall 2020
+
 Fall 2020  Folder
