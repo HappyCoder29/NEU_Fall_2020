@@ -4,19 +4,21 @@ public class Main {
 
     public static void main(String[] args) {
 
-        StackGetMax stackMax = new StackGetMax();
-        stackMax.push(4);
-        System.out.println(stackMax.getMax());
-        stackMax.push(3);
-        System.out.println(stackMax.getMax());
-        stackMax.push(7);
-        System.out.println(stackMax.getMax());
-        stackMax.push(5);
-        System.out.println(stackMax.getMax());
-        stackMax.push(8);
-        System.out.println(stackMax.getMax());
-        stackMax.push(2);
-        System.out.println(stackMax.getMax());
+        System.out.println(makeGood("s"));
+
+//        StackGetMax stackMax = new StackGetMax();
+//        stackMax.push(4);
+//        System.out.println(stackMax.getMax());
+//        stackMax.push(3);
+//        System.out.println(stackMax.getMax());
+//        stackMax.push(7);
+//        System.out.println(stackMax.getMax());
+//        stackMax.push(5);
+//        System.out.println(stackMax.getMax());
+//        stackMax.push(8);
+//        System.out.println(stackMax.getMax());
+//        stackMax.push(2);
+//        System.out.println(stackMax.getMax());
 
 
 
@@ -67,5 +69,47 @@ public class Main {
 //            System.out.println(stack.pop().toString());
 //        }
 
+    }
+
+    public static String removeAdjacentDuplicates(String str){
+        Stack<Character> stack = new Stack<>();
+        for (Character ch : str.toLowerCase().toCharArray()) {
+            if(stack.isEmpty()){
+                stack.push(ch);
+                continue;
+            }
+            if(stack.peek() == ch ){
+                stack.pop();
+            }else{
+                stack.push(ch);
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        while(! stack.isEmpty()){
+            sb.insert(0, stack.pop().toString());
+        }
+        return sb.toString();
+    }
+
+
+    public static String makeGood(String str){
+        Stack<Character> stack = new Stack<>();
+        for (Character ch : str.toCharArray()) {
+            if(stack.isEmpty()){
+                stack.push(ch);
+                continue;
+            }
+            if(     stack.peek() != ch &&
+                    Character.toLowerCase(stack.peek() )  == Character.toLowerCase(ch) ){
+                stack.pop();
+            }else{
+                stack.push(ch);
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        while(! stack.isEmpty()){
+            sb.insert(0, stack.pop().toString());
+        }
+        return sb.toString();
     }
 }
