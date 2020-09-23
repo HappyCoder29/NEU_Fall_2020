@@ -4,17 +4,29 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Stack<Integer> stack = new Stack<>();
-        stack.push(5);
-        stack.push(-3);
+        Queue<Integer> queue = new Queue<>();
+        queue.enqueue(1);
+        queue.enqueue(2);
+        queue.enqueue(3);
+        queue.enqueue(4);
+        queue.enqueue(5);
 
-        stack.push(7);
-
-        stack.push(4);
-
-        while(! stack.isEmpty()){
-            System.out.println(stack.pop().toString());
+        while(! queue.isEmpty()){
+            System.out.println(queue.dequeue());
         }
+
+
+//        Stack<Integer> stack = new Stack<>();
+//        stack.push(5);
+//        stack.push(-3);
+//
+//        stack.push(7);
+//
+//        stack.push(4);
+//
+//        while(! stack.isEmpty()){
+//            System.out.println(stack.pop().toString());
+//        }
 
     }
 }
