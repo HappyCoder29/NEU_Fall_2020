@@ -4,7 +4,16 @@ public class Main {
 
     public static void main(String[] args) {
 
-        System.out.println(makeGood("s"));
+        StackUsingQueues stack = new StackUsingQueues();
+        stack.push(1);
+        stack.push(2);
+        stack.push(3);
+        stack.push(4);
+
+        System.out.println(stack.pop());
+
+
+        // System.out.println(makeGood("s"));
 
 //        StackGetMax stackMax = new StackGetMax();
 //        stackMax.push(4);
