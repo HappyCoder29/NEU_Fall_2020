@@ -4,24 +4,43 @@ public class Main {
 
     public static void main(String[] args) {
 
-        TwoStacksInArray twoStack = new TwoStacksInArray(10);
+        StackGetMax stackMax = new StackGetMax();
+        stackMax.push(4);
+        System.out.println(stackMax.getMax());
+        stackMax.push(3);
+        System.out.println(stackMax.getMax());
+        stackMax.push(7);
+        System.out.println(stackMax.getMax());
+        stackMax.push(5);
+        System.out.println(stackMax.getMax());
+        stackMax.push(8);
+        System.out.println(stackMax.getMax());
+        stackMax.push(2);
+        System.out.println(stackMax.getMax());
 
-        twoStack.push1(1);
-        twoStack.push1(2);
-        twoStack.push1(3);
-        twoStack.push1(4);
-        twoStack.push1(5);
 
 
-        twoStack.push2(6);
-        twoStack.push2(7);
-        twoStack.push2(8);
-        twoStack.push2(9);
 
-        twoStack.push2(10);
 
-        twoStack.print1();
-        twoStack.print2();
+
+//        TwoStacksInArray twoStack = new TwoStacksInArray(10);
+//
+//        twoStack.push1(1);
+//        twoStack.push1(2);
+//        twoStack.push1(3);
+//        twoStack.push1(4);
+//        twoStack.push1(5);
+//
+//
+//        twoStack.push2(6);
+//        twoStack.push2(7);
+//        twoStack.push2(8);
+//        twoStack.push2(9);
+//
+//        twoStack.push2(10);
+//
+//        twoStack.print1();
+//        twoStack.print2();
 
 
 //        Queue<Integer> queue = new Queue<>();
