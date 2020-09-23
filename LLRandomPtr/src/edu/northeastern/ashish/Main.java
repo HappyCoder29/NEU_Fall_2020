@@ -3,6 +3,10 @@ package edu.northeastern.ashish;
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
+        LinkListRandom ll = new LinkListRandom();
+        ll.addNodes();
+        LinkListRandom copy = ll.copyLinkList();
+        System.out.println("");
+
     }
 }
