@@ -1,11 +1,16 @@
 package edu.northeastern.ashish;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Stack;
+
 public class Main {
 
     public static void main(String[] args) {
 
-        int[] arr = {1,3,2,3,4,3,1,4,3,2,3,1};
-        System.out.println(majorityElement(arr));
+//        int[] arr = {4,1,4,4,3,3,4,4,3,2,4,2};
+//        System.out.println(majorityElement(arr));
 //        int[] arr = {-1,-3,5,2,0,-6,3,0,-2,3};
 //        dutchFlag(arr, 0);
 //        printArray(arr);
@@ -16,8 +21,45 @@ public class Main {
        // findNthLargest(arr, 3);
         //quickSort(arr);
         //printArray(arr);
+
+//        int[] arr = {2, 4, 3, 1, 11, 15};
+//        sortArrayWaveFormLinear(arr);
+//        printArray(arr);
+       // System.out.println(sumOfTwoValuesEqualToRest(arr));
+
+//        ArrayList<Interval> intervals = new ArrayList<>();
+//        intervals.add(new Interval(1,4));
+//        intervals.add(new Interval(3,8));
+//        intervals.add(new Interval(4,6));
+//        intervals.add(new Interval(10,12));
+//        intervals.add(new Interval(7,9));
+//
+//        ArrayList<Interval> merged =  mergeIntervals(intervals);
+//        System.out.println("");
+
+//        int[] arr1 = {1,6,11,16,17};
+//        int[] arr2 = {2,7,12,18};
+//        int[] arr3 = {3,8,13};
+//        int[] arr4 = {4,9,14};
+//        int[] arr5 = {5,10,15};
+//        ArrayList<int[]> list = new ArrayList<>();
+//        list.add(arr1);
+//        list.add(arr2);
+//        list.add(arr3);
+//        list.add(arr4);
+//        list.add(arr5);
+//
+//
+//        int[] merged = mergedKSortedArrays(list );
+//        printArray(merged);
+
+        int[] arr = {1,2,3,4,5,6,7,8,9};
+        rotate(arr, 3);
+        printArray(arr);
+
     }
 
+    //region Class 1
     private static void printArray(int[] arr){
         for (int i : arr) {
             System.out.printf(i + " ");
@@ -110,7 +152,7 @@ public class Main {
     }
 
     private static void quickSort(int[] arr){
-       quickSort(arr, 0, arr.length -1);
+        quickSort(arr, 0, arr.length -1);
     }
 
     private static void quickSort(int[] arr, int low, int high){
@@ -225,6 +267,377 @@ public class Main {
 
     }
 
+    //endregion
+
+
+
+    // region Class 2
+
+    static void reverse(int[] arr, int start, int end){
+        if(arr == null || arr.length <= 1 || start >= end ){
+            return;
+        }
+        while(start < end){
+            swap(arr, start,end);
+            start ++;
+            end--;
+        }
+
+
+    }
+
+    static boolean binSearch(int[] arr, int x){
+        if(arr == null || arr.length == 0){
+            return false;
+        }
+        int low = 0;
+        int high = arr.length -1;
+        while (low <= high){
+            int mid = (low + high)/2;
+
+            if(arr[mid] == x){
+                return true;
+            }
+            else if(arr[mid] < x){
+                low = mid +1;
+            }
+            else{
+                high = mid -1;
+            }
+        }
+        return  false;
+    }
+
+    static boolean binSearchRecursive(int[] arr, int x){
+        return binSearchRecursive(arr, x, 0, arr.length -1);
+    }
+
+    static boolean binSearchRecursive(int[] arr, int x, int low, int high){
+        if(low > high){
+            return  false;
+        }
+
+        int mid = (low + high)/2;
+
+        if(arr[mid] == x){
+            return  true;
+        }else if(arr[mid] < x){
+            return binSearchRecursive(arr, x, mid +1, high);
+        }else{
+            return binSearchRecursive(arr, x, low, mid - 1);
+        }
+    }
+
+
+    static int getNumberOfOccurances(int[] arr, int x){
+        return  getNumberOfOccurances(arr, x, 0, arr.length -1);
+    }
+
+    static int getNumberOfOccurances(int[] arr, int x, int start, int end){
+       // we did not find the value
+        if( end < start){
+            return 0;
+        }
+
+        // smallest value is bigger than the value we are searching for
+        if( arr[start] > x){
+            return  0;
+        }
+        // largest value is smaller than the value we are searching for
+        if(arr[end] < x){
+            return 0;
+        }
+
+        // if all the elements are equal to value we are searching for
+        if(arr[start] == x && arr[end] == x){
+            return  end - start +1;
+        }
+
+        int mid = (start + end)/2;
+
+        // if we find X we will return 1 + elements on left as well as right
+        if( arr[mid] == x){
+            return  1 + getNumberOfOccurances(arr, x, start, mid -1)
+                    + getNumberOfOccurances(arr, x, mid + 1, end);
+        }
+        else if ( arr[mid] < x){
+            return getNumberOfOccurances(arr, x, mid + 1 , end);
+        }
+        else {
+            return getNumberOfOccurances(arr, x, start , mid -1);
+        }
+
+    }
+
+    static int getIndexOfFirst(int[] arr, int x){
+        return  getIndexOfFirst(arr, x, 0, arr.length -1);
+    }
+
+    static int getIndexOfFirst(int[] arr, int x, int start, int end){
+        if(start > end){
+            return -1;
+        }
+        // smallest value is bigger than the value we are searching for
+        if( arr[start] > x){
+            return  -1;
+        }
+        // largest value is smaller than the value we are searching for
+        if(arr[end] < x){
+            return -1;
+        }
+
+        // if all the elements are equal to value we are searching for
+        if(arr[start] == x){
+            return start;
+        }
+
+        int mid = (start + end)/2;
+
+
+        if(arr[mid] == x){
+            return getIndexOfFirst(arr, x, start, mid);
+        }else if(arr[mid] < x){
+            return getIndexOfFirst(arr, x, mid + 1, end);
+
+        }else {
+            return getIndexOfFirst(arr, x, start, mid -1);
+        }
+
+    }
+
+    static int findCeiling(int[] arr, int x){
+        return  findCeiling(arr, x, 0, arr.length -1);
+    }
+
+    static int findCeiling(int[] arr, int x, int start, int end){
+
+        if(arr[start] > x){
+            return  arr[start];
+        }
+        if(arr[end] < x){
+            return Integer.MAX_VALUE;
+        }
+
+        int mid = (start + end)/2;
+
+        if(arr[mid] == x){
+            return x;
+
+        }else if (arr[mid] < x){
+            return findCeiling(arr, x, mid +1, end);
+        } else {
+            return findCeiling(arr, x, start, mid);
+        }
+
+    }
+
+    static int findFloor(int[] arr, int x){
+        return  findFloor(arr, x, 0, arr.length -1);
+    }
+
+    static int findFloor(int[] arr, int x, int start, int end){
+
+        if(arr[start] > x){
+            return  Integer.MIN_VALUE;
+        }
+        if(arr[end] < x){
+            return arr[end];
+        }
+
+        int mid = (start + end)/2;
+
+        if(arr[mid] == x){
+            return x;
+        }else if (arr[mid] < x){
+            return findFloor(arr, x, mid, end);
+        } else {
+            return findFloor(arr, x, start, mid-1);
+        }
+
+    }
+
+    static boolean checkIfTwoValuesSumEqualX(int[] arr, int x){
+        if(arr == null || arr.length <= 1){
+            return false;
+        }
+
+        Arrays.sort(arr);
+
+        int start = 0 ;
+        int end = arr.length -1;
+
+        while(start < end){
+            int sum = arr[start] + arr[end];
+            if( sum == x){
+                return  true;
+            }else if ( sum < x){
+                start ++;
+            }else{
+                end --;
+            }
+        }
+
+        return  false;
+
+
+    }
+
+    static  boolean sumOfTwoValuesEqualToRest(int[] arr){
+        int sum = 0 ;
+
+        for(int i = 0 ; i < arr.length; i ++){
+            sum += arr[i];
+        }
+
+        Arrays.sort(arr);
+
+        int start = 0 ;
+        int end = arr.length -1;
+
+        while(start < end){
+            int currSum = arr[start] + arr[end];
+            if( currSum * 2 == sum ){
+                System.out.println("Found elements Start = " + arr[start] + " end = " + arr[end]);
+                return true;
+            }else if (currSum * 2 < sum){
+                start++;
+            }else {
+                end --;
+            }
+
+        }
+        return  false;
+    }
+
+    static  void sortArrayWaveForm(int[] arr){
+        if(arr == null || arr.length <= 1 ){
+            return;
+        }
+        Arrays.sort(arr);
+
+        for(int i = 0 ; i < arr.length -1 ; i +=2){
+            swap(arr, i, i +1);
+        }
+    }
+
+    static  void sortArrayWaveFormLinear(int[] arr){
+        if(arr == null || arr.length <= 1 ){
+            return;
+        }
+
+        for(int i = 0 ; i < arr.length ; i +=2){
+            if( i > 0 && arr[i-1] > arr[i]){
+                swap(arr, i-1, i);
+            }
+
+            if(i < arr.length -1 && arr[i] < arr[ i +1]){
+                swap(arr, i, i +1);
+            }
+        }
+    }
+
+    static ArrayList<Interval> mergeIntervals(ArrayList<Interval> intervals){
+
+        intervals.sort(new Comparator<Interval>() {
+            @Override
+            public int compare(Interval x, Interval y) {
+                if(x.start > y.start ){
+                    return  1;
+                }else if (x.start < y.start){
+                    return -1;
+                }else{
+                    return 0;
+                }
+            }
+        });
+
+        Stack<Interval> stack  = new Stack<>();
+        stack.push(intervals.get(0));
+
+        for(int i = 1; i < intervals.size(); i ++){
+            Interval top = stack.peek();
+            Interval current = intervals.get(i);
+            if(top.end < current.start){
+                stack.push(current);
+            }
+            else if(top.end < current.end ){
+                top.end  = current.end;
+                stack.pop();
+                stack.push(top);
+            }
+        }
+
+        Stack<Interval> reverse = new Stack<>();
+
+        while(! stack.isEmpty() ){
+            reverse.push(stack.pop());
+        }
+
+        ArrayList<Interval> merged = new ArrayList<>();
+        while(!reverse.isEmpty()){
+            merged.add(reverse.pop());
+        }
+        return merged;
+    }
+
+    static  int[] mergeSortedArrays(int[] arr1, int[] arr2){
+
+        int[] merged = new int[arr1.length + arr2.length];
+        int ptr1 = 0;
+        int ptr2 = 0;
+        int ptr = 0 ;
+        while(ptr1 < arr1.length && ptr2 < arr2.length){
+            if(arr1[ptr1] < arr2[ptr2]){
+                merged[ptr++] = arr1[ptr1++];
+            }else {
+                merged[ptr++] = arr2[ptr2++];
+            }
+        }
+
+        while(ptr1 < arr1.length){
+            merged[ptr++] = arr1[ptr1++];
+        }
+        while(ptr2 < arr2.length){
+            merged[ptr++] = arr2[ptr2++];
+        }
+        return  merged;
+    }
+
+    static int[] mergedKSortedArrays(ArrayList<int[]> listSortedArrays){
+        int[] merged = {};
+        for(int i = 1; i < listSortedArrays.size(); i ++){
+            if(i == 1 ){
+                merged = mergeSortedArrays(listSortedArrays.get(0), listSortedArrays.get(i));
+            }else {
+                merged = mergeSortedArrays(merged, listSortedArrays.get(i));
+            }
+        }
+
+        return merged;
+    }
+
+
+    static void rotate(int[] arr, int n){
+        n = n % arr.length;
+
+        reverse(arr, 0, arr.length -1);
+        reverse(arr, 0, n-1);
+        reverse(arr, n, arr.length -1);
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+        // endregion
 
 
 
