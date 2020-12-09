@@ -12,6 +12,8 @@ public class Node {
 
     public int rank;
 
+    public COLOR color;
+
     private Node(){}
 
     public Node(String name){
@@ -20,6 +22,7 @@ public class Node {
         this.listEdges = new LinkedList<>();
         this.parent = this;
         this.rank = 0;
+        this.color = COLOR.WHITE;
     }
 
 
